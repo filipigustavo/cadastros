@@ -17,9 +17,9 @@ class ObjetoController extends Controller
     {
         $objetos = Objeto::all();
 
-        $data = array(
+        $data = [
           'objetos' => $objetos
-        );
+        ];
 
         return view('objeto.listar', $data);
     }
@@ -33,9 +33,9 @@ class ObjetoController extends Controller
     {
         $categorias = \App\Categoria::all();
 
-        $data = array(
+        $data = [
           'categorias' => $categorias
-        );
+        ];
 
         return view('objeto.criar', $data);
     }
@@ -65,9 +65,9 @@ class ObjetoController extends Controller
     {
         $objeto = Objeto::find($id);
 
-        $data = array(
+        $data = [
           'objeto' => $objeto
-        );
+        ];
 
         return view('objeto.detalhe', $data);
     }
@@ -83,10 +83,10 @@ class ObjetoController extends Controller
         $objeto = Objeto::find($id);
         $categorias = \App\Categoria::all();
 
-        $data = array(
+        $data = [
           'objeto' => $objeto,
           'categorias' => $categorias
-        );
+        ];
 
         return view('objeto.editar', $data);
     }

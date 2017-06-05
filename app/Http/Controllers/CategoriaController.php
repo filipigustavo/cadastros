@@ -17,9 +17,9 @@ class CategoriaController extends Controller
     {
         $categorias = Categoria::all();
 
-        $data = array(
+        $data = [
           'categorias' => $categorias
-        );
+        ];
 
         return view('categoria.listar', $data);
     }
@@ -58,9 +58,9 @@ class CategoriaController extends Controller
     {
         $categoria = Categoria::find($id);
 
-        $data = array(
+        $data = [
           'categoria' => $categoria
-        );
+        ];
 
         return view('categoria.detalhe', $data);
     }
@@ -75,9 +75,9 @@ class CategoriaController extends Controller
     {
         $categoria = Categoria::find($id);
 
-        $data = array(
+        $data = [
           'categoria' => $categoria
-        );
+        ];
 
         return view('categoria.editar', $data);
     }
