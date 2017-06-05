@@ -63,7 +63,7 @@ class ObjetoController extends Controller
      */
     public function show($id)
     {
-        $objeto = Objeto::find($id);
+        $objeto = Objeto::findOrFail($id);
 
         $data = [
           'objeto' => $objeto

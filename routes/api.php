@@ -23,20 +23,20 @@ Route::get('/',function(){
 
 // Objetos JSON
 Route::get('/objetos', function(){
-  $objetos = \App\Objeto::all();
-  return $objetos->toJson();
+  $objetos = \App\Objeto::all()->load('categoria');
+  return response()->json($objetos);
 });
 Route::get('/objetos/{id}', function($id){
-  $objeto = \App\Objeto::find($id);
-  return $objeto->toJson();
+  $objeto = \App\Objeto::find($id)->load('categoria');
+  return response()->json($objeto);
 });
 
 // Categorias JSON
 Route::get('/categorias', function(){
-  $categorias = \App\Categoria::all();
-  return $categorias->toJson();
+  $categorias = \App\Categoria::all()->load('objetos');
+  return response()->json($categorias);
 });
 Route::get('/categorias/{id}', function($id){
-  $categoria = \App\Categoria::find($id);
-  return $categoria->toJson();
+  $categoria = \App\Categoria::find($id)->load('objetos');
+  return response()->json($categoria);
 });
