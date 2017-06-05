@@ -17,6 +17,7 @@ class CreateObjetosTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('categoria_id');
+            $table->integer('user_id');
             $table->softDeletes();
             $table->timestamps();
         });

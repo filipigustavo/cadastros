@@ -8,6 +8,9 @@
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
+                  <p class="lead">
+                    Olá, {{$user->name}}
+                  </p>
                   <ul>
                     <li>
                       <a href="{{route('listar_objetos')}}">Listar Objetos</a>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use App\Objeto;
 
@@ -49,6 +50,7 @@ class ObjetoController extends Controller
     public function store(Request $request)
     {
         $objeto = new Objeto;
+        $objeto->user_id = Auth::user()->id;
         $objeto->name = $request->name;
         $objeto->categoria_id = $request->categoria_id;
         $objeto->save();
