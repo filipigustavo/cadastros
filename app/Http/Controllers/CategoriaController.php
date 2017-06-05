@@ -56,7 +56,13 @@ class CategoriaController extends Controller
      */
     public function show($id)
     {
-        return view('categoria.detalhe');
+        $categoria = Categoria::find($id);
+
+        $data = array(
+          'categoria' => $categoria
+        );
+
+        return view('categoria.detalhe', $data);
     }
 
     /**

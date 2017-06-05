@@ -8,7 +8,7 @@
         <ul>
         @foreach ($objetos as $objeto)
           <li>
-            {{$objeto->name}} - {{$objeto->categoria->name}}<br />
+            <a href="/objetos/{{$objeto->id}}">{{$objeto->name}}</a> - <a href="/categorias/{{$objeto->categoria->id}}">{{$objeto->categoria->name}}</a><br />
             <a href="/objetos/editar/{{$objeto->id}}" class="btn btn-xs btn-primary">Editar</a>
             <form method="POST" action="/objetos/{{$objeto->id}}">
               {{ csrf_field() }}

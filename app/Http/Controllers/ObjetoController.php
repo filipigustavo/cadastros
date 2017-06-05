@@ -63,7 +63,13 @@ class ObjetoController extends Controller
      */
     public function show($id)
     {
-        return view('objeto.detalhe');
+        $objeto = Objeto::find($id);
+
+        $data = array(
+          'objeto' => $objeto
+        );
+
+        return view('objeto.detalhe', $data);
     }
 
     /**

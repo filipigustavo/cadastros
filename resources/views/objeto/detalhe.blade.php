@@ -5,7 +5,9 @@
     <div class="row">
       <div class="col-sm-12">
 
-        detalhes
+        {{$objeto->name}}<br />
+        <a href="/objetos" class="btn btn-primary">Objetos</a>
+        <a href="/home" class="btn btn-primary">Home</a>
 
       </div>
     </div>

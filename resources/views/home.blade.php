@@ -8,7 +8,20 @@
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
-                    You are logged in!
+                  <ul>
+                    <li>
+                      <a href="{{route('listar_objetos')}}">Listar Objetos</a>
+                    </li>
+                    <li>
+                      <a href="{{route('criar_objeto')}}">Criar Objeto</a>
+                    </li>
+                    <li>
+                      <a href="{{route('listar_categorias')}}">Listar Categorias</a>
+                    </li>
+                    <li>
+                      <a href="{{route('criar_categoria')}}">Criar Categoria</a>
+                    </li>
+                  </ul>
                 </div>
             </div>
         </div>

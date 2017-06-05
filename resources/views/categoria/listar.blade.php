@@ -8,7 +8,7 @@
         <ul>
         @foreach ($categorias as $categoria)
           <li>
-            {{$categoria->name}}<br />
+            <a href="/categorias/{{$categoria->id}}">{{$categoria->name}}</a><br />
             <a href="/categorias/editar/{{$categoria->id}}" class="btn btn-xs btn-primary">Editar</a><br />
             <form method="POST" action="/categorias/{{$categoria->id}}">
               {{ csrf_field() }}
