@@ -28,7 +28,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Route::group([ 'middleware' => 'cors'], function() {
+        Route::group(['middleware' => 'cors'], function() {
           Passport::routes();
         });
         Passport::tokensExpireIn(Carbon::now()->addDays(15));

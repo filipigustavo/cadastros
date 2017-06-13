@@ -42,6 +42,10 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+          'name' => 'required|unique:categorias'
+        ]);
+
         $categoria = new Categoria;
         $categoria->name = $request->name;
         $categoria->save();
