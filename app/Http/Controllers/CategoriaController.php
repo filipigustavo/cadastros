@@ -95,6 +95,10 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+          'name' => 'required|unique:categorias'
+        ]);
+
         $categoria = Categoria::find($id);
         $categoria->name = $request->name;
         $categoria->save();

@@ -49,6 +49,11 @@ class ObjetoController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+          'name' => 'required|unique:objetos',
+          'categoria_id' => 'required',
+        ]);
+
         $objeto = new Objeto;
         $objeto->user_id = Auth::user()->id;
         $objeto->name = $request->name;
@@ -102,6 +107,11 @@ class ObjetoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+          'name' => 'required|unique:objetos',
+          'categoria_id' => 'required',
+        ]);
+
         $objeto = Objeto::find($id);
         $objeto->name = $request->name;
         $objeto->categoria_id = $request->categoria_id;
