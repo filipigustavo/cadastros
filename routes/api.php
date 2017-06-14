@@ -33,12 +33,12 @@ Route::get('/objetos/{id}', function($id){
 
 // Categorias JSON
 Route::get('/categorias', function(Request $request){
-  if($request->input('callback')){
+  // if($request->input('callback')){
     $categorias = \App\Categoria::all(); // ->load('objetos')
-    return response()->json($categorias)->withCallback($request->input('callback'));
-  }
-  return;
-});
+    return response()->json($categorias); // ->withCallback($request->input('callback'));
+  // }
+  // return;
+})->middleware(['cors', 'auth:api']);
 Route::get('/categorias/{id}', function($id){
   $categoria = \App\Categoria::find($id)->load('objetos');
   return response()->json($categoria);
