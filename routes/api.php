@@ -46,4 +46,11 @@ Route::group(['middleware' => ['cors', 'auth:api']], function(){
     $categoria = \App\Categoria::find($id)->load('objetos');
     return response()->json($categoria);
   });
+
+  Route::post('/receive-post', function(Request $request){
+    $data = [
+      'post-data' => $request->postfield
+    ];
+    return response()->json($data);
+  });
 });
