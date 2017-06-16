@@ -54,11 +54,21 @@ class ObjetoController extends Controller
           'categoria_id' => 'required',
         ]);
 
+        $user = Auth::user();
+        if($request->wantsJson()){
+          $user = $request->user();
+        }
+
         $objeto = new Objeto;
-        $objeto->user_id = Auth::user()->id;
+        $objeto->user_id = $user->id;
         $objeto->name = $request->name;
         $objeto->categoria_id = $request->categoria_id;
         $objeto->save();
+
+        if($request->wantsJson()){
+          return response()->json($objeto->load('categoria'));
+        }
+
         return redirect()->route('listar_objetos');
     }
 
@@ -125,10 +135,15 @@ class ObjetoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $objeto = Objeto::find($id);
         $objeto->delete();
+
+        if($request->wantsJson()){
+          return response()->json(Objeto::all()->load('categoria'));
+        }
+
         return redirect()->route('listar_objetos');
     }
 }

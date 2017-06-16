@@ -49,6 +49,11 @@ class CategoriaController extends Controller
         $categoria = new Categoria;
         $categoria->name = $request->name;
         $categoria->save();
+
+        if($request->wantsJson()){
+          return response()->json($categoria);
+        }
+
         return redirect()->route('listar_categorias');
     }
 
@@ -111,10 +116,15 @@ class CategoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $categoria = Categoria::find($id);
         $categoria->delete();
+
+        if($request->wantsJson()){
+          return response()->json(Categoria::all()->load('objetos'));
+        }
+        
         return redirect()->route('listar_categorias');
     }
 }

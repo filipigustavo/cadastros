@@ -15,11 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('php', function(){
-  phpinfo();
-  exit;
-});
-
 // Grupo autenticado
 Route::group(['middleware'=>'auth'], function(){
   // Objetos
