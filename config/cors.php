@@ -1,5 +1,16 @@
 <?php
 
+if(env('APP_ENV') == 'prod'){
+  return [
+      'supportsCredentials' => true,
+      'allowedOrigins' => ['https://filipigustavo.github.io/cadastros-consumer'],
+      'allowedHeaders' => ['*'],
+      'allowedMethods' => ['*'],
+      'exposedHeaders' => [],
+      'maxAge' => 0,
+  ];
+}
+
 return [
     /*
      |--------------------------------------------------------------------------
