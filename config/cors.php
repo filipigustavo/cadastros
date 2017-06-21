@@ -3,7 +3,7 @@
 if(env('APP_ENV') == 'prod'){
   return [
       'supportsCredentials' => true,
-      'allowedOrigins' => ['https://filipigustavo.github.io/cadastros-consumer'],
+      'allowedOrigins' => ['http://ng.filipigustavo.com.br'],
       'allowedHeaders' => ['*'],
       'allowedMethods' => ['*'],
       'exposedHeaders' => [],
