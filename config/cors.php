@@ -3,7 +3,7 @@
 if(env('APP_ENV') == 'prod'){
   return [
       'supportsCredentials' => true,
-      'allowedOrigins' => ['http://ng.filipigustavo.com.br'],
+      'allowedOrigins' => ['http://*.filipigustavo.com.br'],
       'allowedHeaders' => ['*'],
       'allowedMethods' => ['*'],
       'exposedHeaders' => [],
