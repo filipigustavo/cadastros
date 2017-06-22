@@ -31,4 +31,8 @@ class User extends Authenticatable
     public function objetos(){
       return $this->hasMany('App\Objeto');
     }
+
+    public function categorias(){
+      return $this->hasMany('App\Categoria');
+    }
 }

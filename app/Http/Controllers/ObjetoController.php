@@ -4,11 +4,26 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 use App\Objeto;
 
 class ObjetoController extends Controller
 {
+    protected $user;
+
+    public function __construct(){
+      $this->middleware(function(Request $request, $next){
+        $this->user = Auth::user();
+
+        if($request->wantsJson()){
+          $this->user = $request->user();
+        }
+
+        return $next($request);
+      });
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -50,17 +65,20 @@ class ObjetoController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-          'name' => 'required|unique:objetos',
+          'name' => [
+            'required',
+            Rule::unique('objetos')->where(function($query) use ($request){
+              $query->where([
+                ['user_id', '=', $this->user->id],
+                ['categoria_id', '=', $request->categoria_id]
+              ]);
+            })
+          ],
           'categoria_id' => 'required',
         ]);
 
-        $user = Auth::user();
-        if($request->wantsJson()){
-          $user = $request->user();
-        }
-
         $objeto = new Objeto;
-        $objeto->user_id = $user->id;
+        $objeto->user_id = $this->user->id;
         $objeto->name = $request->name;
         $objeto->categoria_id = $request->categoria_id;
         $objeto->save();
@@ -117,12 +135,21 @@ class ObjetoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $objeto = Objeto::find($id);
+
         $this->validate($request, [
-          'name' => 'required|unique:objetos',
+          'name' => [
+            'required',
+            Rule::unique('objetos')->where(function($query) use ($request){
+              $query->where([
+                ['user_id', '=', $this->user->id],
+                ['categoria_id', '=', $request->categoria_id]
+              ]);
+            })->ignore($objeto->id)
+          ],
           'categoria_id' => 'required',
         ]);
 
-        $objeto = Objeto::find($id);
         $objeto->name = $request->name;
         $objeto->categoria_id = $request->categoria_id;
         $objeto->save();

@@ -3,11 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 use App\Categoria;
 
 class CategoriaController extends Controller
 {
+    protected $user;
+
+    public function __construct(){
+      $this->middleware(function(Request $request, $next){
+        $this->user = Auth::user();
+
+        if($request->wantsJson()){
+          $this->user = $request->user();
+        }
+
+        return $next($request);
+      });
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -43,10 +59,16 @@ class CategoriaController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-          'name' => 'required|unique:categorias'
+          'name' => [
+            'required',
+            Rule::unique('categorias')->where(function($query){
+              $query->where('user_id', $this->user->id);
+            })
+          ]
         ]);
 
         $categoria = new Categoria;
+        $categoria->user_id = $this->user->id;
         $categoria->name = $request->name;
         $categoria->save();
 
@@ -100,11 +122,17 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $categoria = Categoria::find($id);
+
         $this->validate($request, [
-          'name' => 'required|unique:categorias'
+          'name' => [
+            'required',
+            Rule::unique('categorias')->where(function($query){
+              $query->where('user_id', $this->user->id);
+            })->ignore($categoria->id)
+          ]
         ]);
 
-        $categoria = Categoria::find($id);
         $categoria->name = $request->name;
         $categoria->save();
         return redirect()->route('listar_categorias');
@@ -124,7 +152,7 @@ class CategoriaController extends Controller
         if($request->wantsJson()){
           return response()->json(Categoria::all()->load('objetos'));
         }
-        
+
         return redirect()->route('listar_categorias');
     }
 }
