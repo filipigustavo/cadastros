@@ -17,6 +17,8 @@ Route::get('/', function () {
 
 // Grupo autenticado
 Route::group(['middleware'=>'auth'], function(){
+  Route::get('/home', 'HomeController@index')->name('home');
+  
   // Objetos
   Route::get('/objetos', 'ObjetoController@index')->name('listar_objetos');
   Route::get('/objetos/criar', 'ObjetoController@create')->name('criar_objeto');
@@ -37,4 +39,3 @@ Route::group(['middleware'=>'auth'], function(){
 });
 
 Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
