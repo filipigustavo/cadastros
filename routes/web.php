@@ -18,7 +18,7 @@ Route::get('/', function () {
 // Grupo autenticado
 Route::group(['middleware'=>'auth'], function(){
   Route::get('/home', 'HomeController@index')->name('home');
-  
+
   // Objetos
   Route::get('/objetos', 'ObjetoController@index')->name('listar_objetos');
   Route::get('/objetos/criar', 'ObjetoController@create')->name('criar_objeto');
@@ -29,13 +29,15 @@ Route::group(['middleware'=>'auth'], function(){
   Route::delete('/objetos/{id}', 'ObjetoController@destroy');
 
   // Categorias
-  Route::get('/categorias', 'CategoriaController@index')->name('listar_categorias');
-  Route::get('/categorias/criar', 'CategoriaController@create')->name('criar_categoria');
-  Route::get('/categorias/editar/{id}', 'CategoriaController@edit')->name('editar_categoria');
-  Route::get('/categorias/{id}', 'CategoriaController@show')->name('mostrar_categoria');
-  Route::post('/categorias', 'CategoriaController@store');
-  Route::put('/categorias/{id}', 'CategoriaController@update');
-  Route::delete('/categorias/{id}', 'CategoriaController@destroy');
+  Route::get('/categorias', 'CategoriaController@index')->name('listar_categorias')->middleware('permission:read-categoria');
+  Route::get('/categorias/criar', 'CategoriaController@create')->name('criar_categoria')->middleware('permission:create-categoria');
+  Route::get('/categorias/editar/{id}', 'CategoriaController@edit')->name('editar_categoria')->middleware('permission:edit-categoria');
+  Route::get('/categorias/{id}', 'CategoriaController@show')->name('mostrar_categoria')->middleware('permission:read-categoria');
+  Route::post('/categorias', 'CategoriaController@store')->middleware('permission:create-categoria');
+  Route::put('/categorias/{id}', 'CategoriaController@update')->middleware('permission:edit-categoria');
+  Route::delete('/categorias/{id}', 'CategoriaController@destroy')->middleware('permission:delete-categoria');
 });
+
+Route::get('/gerar-permissoes', 'PermissionController@createAll');
 
 Auth::routes();

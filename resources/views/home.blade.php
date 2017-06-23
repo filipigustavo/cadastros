@@ -21,9 +21,11 @@
                     <li>
                       <a href="{{route('listar_categorias')}}">Listar Categorias</a>
                     </li>
+                    @permission('create-categoria')
                     <li>
                       <a href="{{route('criar_categoria')}}">Criar Categoria</a>
                     </li>
+                    @endpermission
                   </ul>
 
                   <passport-clients></passport-clients>
