@@ -54,14 +54,25 @@ Route::group(['middleware' => ['cors', 'auth:api']], function(){
     $categoria = \App\Categoria::find($id)->load('objetos');
     return response()->json($categoria);
   });
-
-
-
-  // Teste de post...
-  Route::post('/receive-post', function(Request $request){
-    $data = [
-      'post-data' => $request->input('postfield')
-    ];
-    return response()->json($data);
-  });
 });
+
+
+
+// Rota aberta para teste rápido
+// Teste de post...
+Route::post('/receive-post', function(Request $request){
+  $data = [
+    'post-data' => $request->input('postfield')
+  ];
+  return response()->json($data);
+})->middleware('cors');
+
+// Teste de get...
+Route::get('/get-whatever', function(Request $request){
+  $data = [
+    'bool' => (bool)random_int(0, 1),
+    'outro' => 'msg da api',
+    'opa' => 90
+  ];
+  return response()->json($data);
+})->middleware('cors');
